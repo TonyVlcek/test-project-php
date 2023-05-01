@@ -11,7 +11,7 @@ This is a very simple one-page application consisting of a single table and a fo
 4. Import `database/schema.sql` into your database
 
 ### Tasks to perform
-1. Style the page using [Bootstrap](http://getbootstrap.com/):
+1. ✅ Style the page using [Bootstrap](http://getbootstrap.com/):
   * Every other table row should be highlighted.
   * Use Bootstrap’s form-horizontal to style the form.
   * Any other styling changes should be made based on your preference. Please make the interface look presentable!
