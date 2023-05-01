@@ -123,7 +123,7 @@ class BaseModel {
 	 * param $limit: array in form array(a,b)
 	 */
 	public static function find($db,$fields = array(),$conditions = array(),$order = array(),$limit = null){
-		// Build query	
+		// Build query
 		$where = self::buildWhere($conditions);
 		$sort = self::buildOrderBy($order);
 		$limit = self::buildLimit($limit);
@@ -229,7 +229,43 @@ class BaseModel {
 			'values' 	=> $values
 		);
 	}
-	
+
+	/**
+	 * Validates user data
+	 *  - all fields are mandatory
+	 *  - limit the length of fields
+	 *  - check for valid email number formats
+	 */
+	private function validateData(array $data): array {
+		$errors = [];
+
+		print_r($data);
+
+		// check that all fields are present and fit within max length
+		$fields = [
+			'name' => 10,
+			'email' => 255,
+			'city' => 255,
+		];
+
+		foreach ($fields as $field => $maxLen) {
+			if (!isset($data[$field]) || trim($data[$field]) === '') {
+				$errors[] = "Field '$field' is required, please fill it in.";
+			}
+
+			if (mb_strlen($data[$field]) > $maxLen) {
+				$errors[] = "Field '$field' is more than $maxLen characters long, please make it shorter.";
+			}
+		}
+
+		// validate email format
+		if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+			$errors[] = "The email format is not valid. Please input valid email address.";
+		}
+
+		return $errors;
+	}
+
 	/**
 	 * Get list of instances using custom query
 	 */
@@ -281,14 +317,19 @@ class BaseModel {
 	 * Insert current record with given data
 	 * Also fields set with setField will be inserted
 	 */
-	public function insert($data = array()){
+	public function insert($data = array()): array {
+		if (($errors = $this->validateData($data)) !== []) {
+			return $errors;
+		}
+
 		// Overwrite current field values with given data
-		$this->setFields($data);		
+		$this->setFields($data);
 		$insertStrings = self::buildInsertData($this->fields);
 		$query = "INSERT INTO `".static::tableName."` (".$insertStrings['columns'].", `created_at`) VALUES (".$insertStrings['values'].", NOW())";
 		$this->db->query($query);
 		// Retrieve id of inserted record
 		$this->id = $this->db->mysqli->insert_id;
+
+		return [];
 	}
-	
 }
