@@ -8,7 +8,8 @@ $user = new User($app->db);
 $errors = $user->insert([
 	'name' => $_POST['name'],
 	'email' => $_POST['email'],
-	'city' => $_POST['city']
+	'city' => $_POST['city'],
+	'phone' => $_POST['phone'],
 ]);
 
 header("Content-Type: application/json");

@@ -82,7 +82,7 @@ class BaseModel {
 			$this->setField($field,$value);
 		}
 	}
-	
+
 	/**
 	 * Escapes values for inserting them into database
 	 * Can also handle array of value
@@ -95,12 +95,12 @@ class BaseModel {
 			return $ret;
 		}
 		// Parse null values
-		if($value === null)return 'NULL';
+		if($value === null) return 'NULL';
+
 		// Escape string values
-		if(!is_numeric($value))return "'".htmlentities(addslashes($value))."'"; 
-		return $value;
+		return "'".htmlentities(addslashes($value))."'";
 	}
-	
+
 	/**
 	 * Finds one record using given criteria
 	 * param $fields: Eager load given fields
@@ -114,7 +114,7 @@ class BaseModel {
 		if(!empty($ret))return $ret[0];
 		else return false;
 	}
-	
+
 	/**
 	 * Finds records using given criteria
 	 * param $fields: Eager load given fields
@@ -201,7 +201,7 @@ class BaseModel {
 		}
 		return $fields;
 	}
-	
+
 	/**
 	 * Builds UPDATE data string from given data
 	 */
@@ -244,6 +244,7 @@ class BaseModel {
 			'name' => 255,
 			'email' => 255,
 			'city' => 255,
+			'phone' => 50,
 		];
 
 		foreach ($fields as $field => $maxLen) {
@@ -259,6 +260,11 @@ class BaseModel {
 		// validate email format
 		if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
 			$errors[] = "The email format is not valid. Please input valid email address.";
+		}
+
+		//Validate by ITU-T E.164, see https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch04s03.html
+		if (!mb_ereg_match('^\+(?:[0-9]●?){6,14}[0-9]$', $data['phone'])) {
+			$errors[] = "Phone number format is not valid. Please ensure that you input phone number in the international format (starting with + and without spaces).";
 		}
 
 		return $errors;

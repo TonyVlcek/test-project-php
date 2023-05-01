@@ -8,6 +8,7 @@
 			<th>Name</th>
 			<th>E-mail</th>
 			<th>City</th>
+			<th>Phone</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -17,6 +18,7 @@
 			<td><?=$user->getName()?></td>
 			<td><?=$user->getEmail()?></td>
 			<td class="city"><?=$user->getCity()?></td>
+			<td><?=$user->getPhone()?></td>
 		</tr>
 		<?php }?>
 	</tbody>
@@ -28,7 +30,7 @@
 <div class="row">
 	<div id="notice"></div>
 	<form id="add-user" method="post" action="create.php" class="form-inline">
-		<div class="form-group col-md-3">
+		<div class="form-group col-md-2">
 			<label class="sr-only" for="name">Name</label>
 			<input name="name" type="text" class="form-control" id="name" placeholder="Some Name" required maxlength="255">
 		</div>
@@ -38,12 +40,17 @@
 			<input name="email" class="form-control" input="email" id="email" placeholder="some@email.com" required maxlength="255">
 		</div>
 
-		<div class="form-group col-md-3">
+		<div class="form-group col-md-2">
 			<label class="sr-only" for="city">City</label>
 			<input name="city" class="form-control" input="text" id="city" placeholder="Prague" required maxlength="255"/>
 		</div>
 
-		<div class="col-md-3">
+		<div class="form-group col-md-2">
+			<label class="sr-only" for="phone">Phone</label>
+			<input name="phone" class="form-control" input="tel" id="phone" placeholder="+420777123456" required maxlength="50"/>
+		</div>
+
+		<div class="col-md-2">
 			<button type="submit" class="btn btn-primary">
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 				Add
