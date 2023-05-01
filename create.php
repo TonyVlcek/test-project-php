@@ -11,9 +11,14 @@ $errors = $user->insert([
 	'city' => $_POST['city']
 ]);
 
-// Redirect back to index - pass errors if any
+header("Content-Type: application/json");
+
 if ($errors !== []) {
-	header('Location: index.php?errors='.rawurlencode(json_encode($errors)));
+	http_response_code(400);
+	echo json_encode($errors);
 } else {
-	header('Location: index.php?success');
+	http_response_code(200);
+	echo json_encode(['status' => 'ok']);
 }
+
+exit();

@@ -239,8 +239,6 @@ class BaseModel {
 	private function validateData(array $data): array {
 		$errors = [];
 
-		print_r($data);
-
 		// check that all fields are present and fit within max length
 		$fields = [
 			'name' => 255,
