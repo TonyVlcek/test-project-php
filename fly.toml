@@ -1,0 +1,15 @@
+# fly.toml app configuration file generated for vlcek-better-stack-test on 2023-05-01T14:38:47+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "vlcek-better-stack-test"
+primary_region = "ams"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+
+# View secret env vars via fly secrets list
