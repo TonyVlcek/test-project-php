@@ -1,4 +1,8 @@
-<table class="table table-striped">
+<form class="form-inline">
+	<input type="text" id="city-filter-input" class="form-control" placeholder="Filter by City">
+</form>
+
+<table class="table table-striped" id="users-table">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -12,7 +16,7 @@
 		<tr>
 			<td><?=$user->getName()?></td>
 			<td><?=$user->getEmail()?></td>
-			<td><?=$user->getCity()?></td>
+			<td class="city"><?=$user->getCity()?></td>
 		</tr>
 		<?php }?>
 	</tbody>

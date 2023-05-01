@@ -28,5 +28,7 @@
 	<main role="main" class="container">
 		<?= $content ?>
 	</main>
+
+	<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
 </body>
 </html>
