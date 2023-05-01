@@ -243,7 +243,7 @@ class BaseModel {
 
 		// check that all fields are present and fit within max length
 		$fields = [
-			'name' => 10,
+			'name' => 255,
 			'email' => 255,
 			'city' => 255,
 		];
